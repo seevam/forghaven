@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --charcoal: #1C1A17;
+  --charcoal-mid: #252220;
+  --charcoal-light: #2E2B27;
+  --amber: #C8843A;
+  --amber-light: #DFA05A;
+  --amber-pale: #E8B87A;
+  --parchment: #E8DFC8;
+  --parchment-dim: rgba(232, 223, 200, 0.55);
+  --moss: #4A5240;
+  --offwhite: #F5F0E8;
+  --divider: rgba(232, 223, 200, 0.1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: auto; /* Lenis handles this */
+}
+
+body {
+  background: var(--charcoal);
+  color: var(--parchment);
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+.font-display { font-family: 'Playfair Display', serif; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--charcoal); }
+::-webkit-scrollbar-thumb { background: var(--amber); }
+
+/* Progress bar */
+#scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: var(--amber);
+  z-index: 9999;
+  transform-origin: left;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
