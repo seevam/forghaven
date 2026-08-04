@@ -1,5 +1,6 @@
 "use client";
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 
 const features = [
@@ -48,17 +49,19 @@ export default function Heritage() {
     >
       {/* Image side */}
       <div className="relative overflow-hidden" ref={imgRef}>
-        <motion.img
-          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80"
-          alt="Heritage brewing"
-          className="w-full object-cover"
-          style={{
-            height: "clamp(320px, 60vh, 600px)",
-            filter: "sepia(0.2) brightness(0.82)",
-            y: imgY,
-            scale: 1.15,
-          }}
-        />
+        <motion.div
+          className="relative w-full"
+          style={{ height: "clamp(320px, 60vh, 600px)", y: imgY, scale: 1.15 }}
+        >
+          <Image
+            src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80"
+            alt="Heritage brewing"
+            fill
+            className="object-cover"
+            style={{ filter: "sepia(0.2) brightness(0.82)" }}
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+        </motion.div>
         {/* Years badge */}
         <motion.div
           className="absolute top-8 -right-4 md:-right-6 px-6 py-5 text-center"
@@ -74,19 +77,22 @@ export default function Heritage() {
         </motion.div>
 
         {/* Accent image */}
-        <motion.img
-          src="https://images.unsplash.com/photo-1532634733-cae1395e440f?w=500&q=80"
-          alt="Copper kettles"
-          className="absolute -bottom-8 -left-4 md:-left-6 w-2/5 object-cover border-4"
-          style={{
-            height: "clamp(120px, 22vh, 200px)",
-            filter: "sepia(0.15) brightness(0.85)",
-            borderColor: "var(--charcoal-mid)",
-          }}
+        <motion.div
+          className="absolute -bottom-8 -left-4 md:-left-6 w-2/5 border-4 overflow-hidden"
+          style={{ height: "clamp(120px, 22vh, 200px)", borderColor: "var(--charcoal-mid)" }}
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.5 }}
-        />
+        >
+          <Image
+            src="https://images.unsplash.com/photo-1532634733-cae1395e440f?w=500&q=80"
+            alt="Copper kettles"
+            fill
+            className="object-cover"
+            style={{ filter: "sepia(0.15) brightness(0.85)" }}
+            sizes="20vw"
+          />
+        </motion.div>
       </div>
 
       {/* Text side */}

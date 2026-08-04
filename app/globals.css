@@ -1,7 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap');
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-sans: Inter, system-ui, sans-serif;
+}
 
 :root {
   --charcoal: #1C1A17;
@@ -26,12 +28,10 @@ html {
 body {
   background: var(--charcoal);
   color: var(--parchment);
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-sans);
   font-weight: 300;
   overflow-x: hidden;
 }
-
-.font-display { font-family: 'Playfair Display', serif; }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 3px; }

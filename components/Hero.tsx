@@ -1,5 +1,6 @@
 "use client";
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function Hero() {
@@ -21,14 +22,16 @@ export default function Hero() {
         className="absolute inset-0 scale-110"
         style={{ y: bgY }}
       >
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url("https://images.unsplash.com/photo-1567696153798-9111f9cd3d0d?w=1800&q=85")`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1567696153798-9111f9cd3d0d?w=1800&q=85"
+            alt="Brewery interior"
+            fill
+            className="object-cover object-center"
+            priority
+            sizes="100vw"
+          />
+        </div>
         <div
           className="absolute inset-0"
           style={{
