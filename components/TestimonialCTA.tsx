@@ -94,7 +94,7 @@ export default function TestimonialCTA() {
             delay={0.1}
             margin="-80px"
           >
-            {`"Forgehaven's Coppersmith Reserve is the kind of beer that makes you put your phone down. It asks for your full attention — and it earns it."`}
+            {"“Forgehaven’s Coppersmith Reserve is the kind of beer that makes you put your phone down. It asks for your full attention—and it earns it.”"}
           </SplitText>
 
           <motion.cite
@@ -118,7 +118,7 @@ export default function TestimonialCTA() {
       >
         <h2
           className="font-display font-black leading-tight"
-          style={{ fontSize: "clamp(2.4rem, 5.5vw, 5rem)", color: "var(--offwhite)" }}
+          style={{ fontSize: "clamp(2rem, 4.2vw, 4rem)", color: "var(--offwhite)" }}
         >
           {headingLines.map((line, i) => (
             <span key={i} style={{ display: "block", overflow: "hidden" }}>

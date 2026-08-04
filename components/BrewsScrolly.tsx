@@ -30,7 +30,7 @@ const brews = [
     season: "Summer - Fall",
     color: "#DFA05A",
     bg: "rgba(223,160,90,0.05)",
-    img: "https://images.unsplash.com/photo-1532634733-cae1395e440f?w=900&q=80",
+    img: "https://images.unsplash.com/photo-1608270586620?w=900&q=80",
   },
   {
     index: "III",
@@ -44,7 +44,7 @@ const brews = [
     season: "Winter",
     color: "#8B6347",
     bg: "rgba(139,99,71,0.07)",
-    img: "https://images.unsplash.com/photo-1504227638900-c229ac9a1f34?w=900&q=80",
+    img: "https://images.unsplash.com/photo-1436076863939?w=900&q=80",
   },
 ];
 

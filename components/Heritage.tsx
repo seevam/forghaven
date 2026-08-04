@@ -62,7 +62,7 @@ export default function Heritage() {
             style={{ height: "clamp(320px, 60vh, 600px)", y: imgY, scale: 1.15 }}
           >
             <Image
-              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80"
+              src="https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=900&q=80"
               alt="Heritage brewing"
               fill
               className="object-cover"
@@ -95,7 +95,7 @@ export default function Heritage() {
           transition={{ duration: 0.9, delay: 0.45, ease: [0.22, 0.61, 0.36, 1] }}
         >
           <Image
-            src="https://images.unsplash.com/photo-1532634733-cae1395e440f?w=500&q=80"
+            src="https://images.unsplash.com/photo-1571767454098-246b94fbcf70?w=500&q=80"
             alt="Copper kettles"
             fill
             className="object-cover"

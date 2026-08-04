@@ -61,7 +61,7 @@ export default function Hero() {
       <motion.div className="absolute inset-0 scale-110" style={{ y: bgY }}>
         <div className="absolute inset-0">
           <Image
-            src="https://images.unsplash.com/photo-1567696153798-9111f9cd3d0d?w=1800&q=85"
+            src="https://images.unsplash.com/photo-1532634733-cae1395e440f?w=1800&q=85"
             alt="Brewery interior"
             fill
             className="object-cover object-center"
@@ -94,7 +94,7 @@ export default function Hero() {
         style={{ y: textY, opacity }}
       >
         <motion.div
-          className="flex items-center gap-4 mb-7"
+          className="flex items-center gap-4 mb-5 md:mb-7"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
@@ -107,7 +107,7 @@ export default function Hero() {
 
         {/* Line-by-line masked h1 reveal */}
         <h1
-          className="font-display font-black leading-none mb-7"
+          className="font-display font-black leading-none mb-4 md:mb-7"
           style={{ fontSize: "clamp(3rem, 8vw, 7rem)", color: "var(--offwhite)" }}
         >
           {(["Where Craft", <>Meets{" "}<em className="italic" style={{ color: "var(--amber)" }}>Character.</em></>] as React.ReactNode[]).map((line, i) => (
@@ -125,7 +125,7 @@ export default function Hero() {
         </h1>
 
         <motion.p
-          className="text-base leading-relaxed max-w-md mb-11 font-light"
+          className="text-base leading-relaxed max-w-md mb-7 md:mb-11 font-light"
           style={{ color: "var(--parchment-dim)" }}
           initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
