@@ -25,7 +25,7 @@ export default function TestimonialCTA() {
             top: "-3rem",
           }}
         >
-          "
+          &ldquo;
         </div>
 
         <motion.div
@@ -41,8 +41,8 @@ export default function TestimonialCTA() {
               maxWidth: 780,
             }}
           >
-            "Forgehaven's Coppersmith Reserve is the kind of beer that makes you put
-            your phone down. It asks for your full attention — and it earns it."
+            &ldquo;Forgehaven&apos;s Coppersmith Reserve is the kind of beer that makes you put
+            your phone down. It asks for your full attention — and it earns it.&rdquo;
           </blockquote>
           <cite
             className="text-[11px] tracking-[0.28em] uppercase font-medium not-italic"

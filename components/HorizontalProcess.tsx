@@ -1,5 +1,6 @@
 "use client";
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const steps = [
@@ -89,11 +90,13 @@ export default function HorizontalProcess() {
             >
               {/* Image half */}
               <div className="relative hidden md:block w-1/2 h-full overflow-hidden">
-                <img
+                <Image
                   src={step.img}
                   alt={step.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
                   style={{ filter: "brightness(0.7) sepia(0.15)" }}
+                  sizes="50vw"
                 />
                 <div
                   className="absolute inset-0"

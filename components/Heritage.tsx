@@ -123,7 +123,7 @@ export default function Heritage() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
-          Forgehaven began in a converted blacksmith's shed in 2009, with two copper kettles,
+          Forgehaven began in a converted blacksmith&apos;s shed in 2009, with two copper kettles,
           a water source fed by the Cascade foothills, and a single-minded obsession with making
           beer that tastes like somewhere specific.
         </motion.p>

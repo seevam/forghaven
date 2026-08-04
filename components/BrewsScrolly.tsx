@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { motion, useScroll, AnimatePresence } from "framer-motion";
 
 const brews = [
   {
@@ -203,12 +204,16 @@ export default function BrewsScrolly() {
                 className="absolute -top-4 -left-4 w-full h-full"
                 style={{ border: `1px solid ${brew.color}22` }}
               />
-              <img
-                src={brew.img}
-                alt={brew.name}
-                className="w-full object-cover"
-                style={{ height: "clamp(280px, 55vh, 500px)", filter: "brightness(0.85) sepia(0.1)" }}
-              />
+              <div className="relative w-full" style={{ height: "clamp(280px, 55vh, 500px)" }}>
+                <Image
+                  src={brew.img}
+                  alt={brew.name}
+                  fill
+                  className="object-cover"
+                  style={{ filter: "brightness(0.85) sepia(0.1)" }}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
               {/* Year badge */}
               <div
                 className="absolute bottom-0 right-0 px-5 py-4 text-center"
