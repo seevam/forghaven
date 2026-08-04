@@ -48,6 +48,11 @@ body {
   transform-origin: left;
 }
 
+/* Hide native cursor on pointer-fine devices (custom cursor active) */
+@media (pointer: fine) {
+  *, *::before, *::after { cursor: none !important; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
