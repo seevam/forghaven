@@ -26,13 +26,13 @@ function MagneticBtn({
   const onLeave = () => { x.set(0); y.set(0); };
 
   return (
-    <motion.div ref={ref} style={{ x: sx, y: sy }} onMouseMove={onMove} onMouseLeave={onLeave}>
+    <motion.div ref={ref} style={{ x: sx, y: sy, display: "inline-block" }} onMouseMove={onMove} onMouseLeave={onLeave}>
       <a
         href={href}
         className="inline-block text-xs tracking-widest uppercase font-semibold px-10 py-4 transition-colors duration-300"
         style={primary
           ? { background: "var(--amber)", color: "var(--charcoal)" }
-          : { border: "1px solid rgba(232,223,200,0.3)", color: "var(--parchment-dim)" }}
+          : { border: "1px solid rgba(232,223,200,0.45)", color: "var(--parchment-dim)" }}
         onMouseEnter={(e) => {
           const el = e.currentTarget as HTMLElement;
           if (primary) el.style.background = "var(--amber-light)";
@@ -41,7 +41,7 @@ function MagneticBtn({
         onMouseLeave={(e) => {
           const el = e.currentTarget as HTMLElement;
           if (primary) el.style.background = "var(--amber)";
-          else { el.style.borderColor = "rgba(232,223,200,0.3)"; el.style.color = "var(--parchment-dim)"; }
+          else { el.style.borderColor = "rgba(232,223,200,0.45)"; el.style.color = "var(--parchment-dim)"; }
         }}
       >
         {children}
@@ -67,7 +67,7 @@ export default function TestimonialCTA() {
       <section
         ref={quoteRef}
         className="px-8 md:px-14 py-24 md:py-36 text-center relative overflow-hidden"
-        style={{ background: "var(--charcoal-mid)" }}
+        style={{ background: "var(--charcoal-mid)", borderTop: "1px solid rgba(200,132,58,0.15)" }}
       >
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 font-display font-black leading-none pointer-events-none select-none"
@@ -114,7 +114,7 @@ export default function TestimonialCTA() {
         id="find"
         ref={ctaRef}
         className="px-8 md:px-14 py-24 md:py-40 grid md:grid-cols-2 gap-14 items-center"
-        style={{ borderTop: "1px solid var(--divider)" }}
+        style={{ borderTop: "1px solid rgba(200,132,58,0.2)" }}
       >
         <h2
           className="font-display font-black leading-tight"
@@ -135,7 +135,7 @@ export default function TestimonialCTA() {
         </h2>
 
         <motion.div
-          className="flex flex-col gap-4 md:items-start"
+          className="flex flex-col gap-6"
           initial={{ opacity: 0, y: 20 }}
           animate={ctaInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.2 }}
@@ -144,7 +144,7 @@ export default function TestimonialCTA() {
             Find Forgehaven beers at select craft retailers across the Pacific Northwest,
             or visit our taproom in Ashford Valley where all 14 brews are on tap year-round.
           </p>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-row flex-wrap gap-4 items-center">
             <MagneticBtn href="#" primary>Find a Stockist</MagneticBtn>
             <MagneticBtn href="#">Visit the Taproom</MagneticBtn>
           </div>
