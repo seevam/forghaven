@@ -65,7 +65,7 @@ export default function Hero() {
             alt="Brewery interior"
             fill
             className="object-cover object-center"
-            priority
+            preload
             sizes="100vw"
           />
         </div>

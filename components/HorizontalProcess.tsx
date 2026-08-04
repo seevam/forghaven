@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -36,10 +36,19 @@ const steps = [
 
 export default function HorizontalProcess() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [activeStep, setActiveStep] = useState(0);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
+
+  useEffect(() => {
+    const unsub = scrollYProgress.on("change", (v) => {
+      const idx = Math.min(Math.round(v * (steps.length - 1)), steps.length - 1);
+      setActiveStep(Math.max(0, idx));
+    });
+    return unsub;
+  }, [scrollYProgress]);
 
   // Translate the inner horizontal track
   const x = useTransform(scrollYProgress, [0, 1], ["0%", `-${(steps.length - 1) * 100}vw`]);
@@ -49,7 +58,7 @@ export default function HorizontalProcess() {
     <section id="craft" ref={containerRef} style={{ height: `${steps.length * 100}vh` }}>
       <div className="sticky top-0 h-screen overflow-hidden">
         {/* Section label */}
-        <div className="absolute top-10 left-8 md:left-14 z-10 flex items-center gap-4">
+        <div className="absolute top-24 left-8 md:left-14 z-10 flex items-center gap-4">
           <span className="block w-10 h-px" style={{ background: "var(--amber)" }} />
           <span className="text-[11px] tracking-[0.28em] uppercase font-medium" style={{ color: "var(--amber)" }}>
             The Craft
@@ -68,14 +77,16 @@ export default function HorizontalProcess() {
         </div>
 
         {/* Step counter */}
-        <motion.div
-          className="absolute top-10 right-8 md:right-14 z-10 font-display font-bold"
+        <div
+          className="absolute top-24 right-8 md:right-14 z-10 font-display font-bold tabular-nums"
           style={{ color: "var(--parchment-dim)", fontSize: "0.8rem", letterSpacing: "0.12em" }}
         >
-          {steps.map((_, i) => (
-            <span key={i} />
-          ))}
-        </motion.div>
+          <span style={{ color: "var(--amber)" }}>
+            {String(activeStep + 1).padStart(2, "0")}
+          </span>
+          {" / "}
+          {String(steps.length).padStart(2, "0")}
+        </div>
 
         {/* Horizontal track */}
         <motion.div
