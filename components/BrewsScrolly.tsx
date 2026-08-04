@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { motion, useScroll, AnimatePresence } from "framer-motion";
 
 const brews = [
   {
@@ -29,7 +30,7 @@ const brews = [
     season: "Summer - Fall",
     color: "#DFA05A",
     bg: "rgba(223,160,90,0.05)",
-    img: "https://images.unsplash.com/photo-1532634733-cae1395e440f?w=900&q=80",
+    img: "https://images.unsplash.com/photo-1612528443702-f6741f70a049?w=900&q=80",
   },
   {
     index: "III",
@@ -43,7 +44,7 @@ const brews = [
     season: "Winter",
     color: "#8B6347",
     bg: "rgba(139,99,71,0.07)",
-    img: "https://images.unsplash.com/photo-1504227638900-c229ac9a1f34?w=900&q=80",
+    img: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=900&q=80",
   },
 ];
 
@@ -203,12 +204,16 @@ export default function BrewsScrolly() {
                 className="absolute -top-4 -left-4 w-full h-full"
                 style={{ border: `1px solid ${brew.color}22` }}
               />
-              <img
-                src={brew.img}
-                alt={brew.name}
-                className="w-full object-cover"
-                style={{ height: "clamp(280px, 55vh, 500px)", filter: "brightness(0.85) sepia(0.1)" }}
-              />
+              <div className="relative w-full" style={{ height: "clamp(280px, 55vh, 500px)" }}>
+                <Image
+                  src={brew.img}
+                  alt={brew.name}
+                  fill
+                  className="object-cover"
+                  style={{ filter: "brightness(0.85) sepia(0.1)" }}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
               {/* Year badge */}
               <div
                 className="absolute bottom-0 right-0 px-5 py-4 text-center"

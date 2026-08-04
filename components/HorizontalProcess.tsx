@@ -1,5 +1,6 @@
 "use client";
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const steps = [
@@ -8,28 +9,28 @@ const steps = [
     title: "Malting & Milling",
     body: "Local barley is malted in-house, dried over beech wood, then milled fresh each morning. No pre-milled grain. No shortcuts.",
     icon: "🌾",
-    img: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=700&q=80",
+    img: "https://images.unsplash.com/photo-1532634733-cae1395e440f?w=700&q=80",
   },
   {
     num: "02",
     title: "Mashing",
     body: "Grain meets mountain water in open copper mash tuns at precise temperatures — coaxing every sugar out slowly over 90 minutes.",
     icon: "🥣",
-    img: "https://images.unsplash.com/photo-1567696153798-9111f9cd3d0d?w=700&q=80",
+    img: "https://images.unsplash.com/photo-1571767454098-246b94fbcf70?w=700&q=80",
   },
   {
     num: "03",
     title: "Fermentation",
     body: "Open fermentation in our stone cellar. Our house yeast strain has been maintained for eleven years. It gives Forgehaven its character.",
     icon: "🫧",
-    img: "https://images.unsplash.com/photo-1504227638900-c229ac9a1f34?w=700&q=80",
+    img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80",
   },
   {
     num: "04",
     title: "Conditioning",
     body: "Cold conditioning from 21 to 90 days. Barrel aging where the recipe calls for it. Ready when it's ready — not before.",
     icon: "🪵",
-    img: "https://images.unsplash.com/photo-1532634733-cae1395e440f?w=700&q=80",
+    img: "https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=700&q=80",
   },
 ];
 
@@ -89,11 +90,13 @@ export default function HorizontalProcess() {
             >
               {/* Image half */}
               <div className="relative hidden md:block w-1/2 h-full overflow-hidden">
-                <img
+                <Image
                   src={step.img}
                   alt={step.title}
-                  className="w-full h-full object-cover"
-                  style={{ filter: "brightness(0.7) sepia(0.15)" }}
+                  fill
+                  className="object-cover"
+                  style={{ filter: "brightness(0.82) sepia(0.15)" }}
+                  sizes="50vw"
                 />
                 <div
                   className="absolute inset-0"

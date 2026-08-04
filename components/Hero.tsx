@@ -1,6 +1,47 @@
 "use client";
-import { useEffect, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import Image from "next/image";
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+
+function MagneticBtn({ children, href, primary }: { children: React.ReactNode; href: string; primary?: boolean }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const sx = useSpring(x, { damping: 12, stiffness: 180 });
+  const sy = useSpring(y, { damping: 12, stiffness: 180 });
+
+  const onMove = (e: React.MouseEvent) => {
+    const rect = ref.current!.getBoundingClientRect();
+    x.set((e.clientX - (rect.left + rect.width / 2)) * 0.22);
+    y.set((e.clientY - (rect.top + rect.height / 2)) * 0.22);
+  };
+  const onLeave = () => { x.set(0); y.set(0); };
+
+  return (
+    <motion.div ref={ref} style={{ x: sx, y: sy, display: "inline-block" }}
+      onMouseMove={onMove} onMouseLeave={onLeave}>
+      <a
+        href={href}
+        className="text-xs tracking-widest uppercase font-semibold px-9 py-4 transition-colors duration-300 inline-block"
+        style={primary
+          ? { background: "var(--amber)", color: "var(--charcoal)" }
+          : { color: "var(--parchment-dim)" }}
+        onMouseEnter={(e) => {
+          const el = e.currentTarget as HTMLElement;
+          if (primary) el.style.background = "var(--amber-light)";
+          else el.style.color = "var(--parchment)";
+        }}
+        onMouseLeave={(e) => {
+          const el = e.currentTarget as HTMLElement;
+          if (primary) el.style.background = "var(--amber)";
+          else el.style.color = "var(--parchment-dim)";
+        }}
+      >
+        {children}
+      </a>
+    </motion.div>
+  );
+}
 
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -17,18 +58,17 @@ export default function Hero() {
       style={{ minHeight: "100svh" }}
     >
       {/* Parallax background */}
-      <motion.div
-        className="absolute inset-0 scale-110"
-        style={{ y: bgY }}
-      >
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url("https://images.unsplash.com/photo-1567696153798-9111f9cd3d0d?w=1800&q=85")`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
+      <motion.div className="absolute inset-0 scale-110" style={{ y: bgY }}>
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1532634733-cae1395e440f?w=1800&q=85"
+            alt="Brewery interior"
+            fill
+            className="object-cover object-center"
+            priority
+            sizes="100vw"
+          />
+        </div>
         <div
           className="absolute inset-0"
           style={{
@@ -37,7 +77,7 @@ export default function Hero() {
         />
       </motion.div>
 
-      {/* Amber pour line - signature animation */}
+      {/* Amber pour line */}
       <div className="absolute top-0 right-[12%] w-[1px] h-full overflow-hidden pointer-events-none">
         <motion.div
           className="w-full"
@@ -48,13 +88,13 @@ export default function Hero() {
         />
       </div>
 
-      {/* Text content with parallax */}
+      {/* Text content */}
       <motion.div
         className="relative z-10 px-8 md:px-14 pb-20 md:pb-28"
         style={{ y: textY, opacity }}
       >
         <motion.div
-          className="flex items-center gap-4 mb-7"
+          className="flex items-center gap-4 mb-5 md:mb-7"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
@@ -65,26 +105,31 @@ export default function Hero() {
           </span>
         </motion.div>
 
-        <motion.h1
-          className="font-display font-black leading-none mb-7"
+        {/* Line-by-line masked h1 reveal */}
+        <h1
+          className="font-display font-black leading-none mb-4 md:mb-7"
           style={{ fontSize: "clamp(3rem, 8vw, 7rem)", color: "var(--offwhite)" }}
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1 }}
         >
-          Where Craft<br />
-          Meets{" "}
-          <em className="italic" style={{ color: "var(--amber)" }}>
-            Character.
-          </em>
-        </motion.h1>
+          {(["Where Craft", <>Meets{" "}<em className="italic" style={{ color: "var(--amber)" }}>Character.</em></>] as React.ReactNode[]).map((line, i) => (
+            <span key={i} style={{ display: "block", overflow: "hidden" }}>
+              <motion.span
+                style={{ display: "block" }}
+                initial={{ y: "108%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.95, delay: 1 + i * 0.13, ease: [0.22, 0.61, 0.36, 1] }}
+              >
+                {line}
+              </motion.span>
+            </span>
+          ))}
+        </h1>
 
         <motion.p
-          className="text-base leading-relaxed max-w-md mb-11 font-light"
+          className="text-base leading-relaxed max-w-md mb-7 md:mb-11 font-light"
           style={{ color: "var(--parchment-dim)" }}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 1.2 }}
+          initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: 0.9, delay: 1.35 }}
         >
           Small-batch ales and lagers brewed with old-world patience, local grain,
           and an obsessive attention to what makes great beer unforgettable.
@@ -92,28 +137,14 @@ export default function Hero() {
 
         <motion.div
           className="flex items-center gap-8"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.4 }}
+          transition={{ duration: 0.8, delay: 1.5 }}
         >
-          <a
-            href="#brews"
-            className="text-xs tracking-widest uppercase font-semibold px-9 py-4 transition-all duration-300"
-            style={{ background: "var(--amber)", color: "var(--charcoal)" }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--amber-light)")}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = "var(--amber)")}
-          >
-            Explore Our Brews
-          </a>
-          <a
-            href="#heritage"
-            className="flex items-center gap-3 text-xs tracking-widest uppercase font-medium transition-colors duration-300"
-            style={{ color: "var(--parchment-dim)" }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--parchment)")}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--parchment-dim)")}
-          >
+          <MagneticBtn href="#brews" primary>Explore Our Brews</MagneticBtn>
+          <MagneticBtn href="#heritage">
             Our Story <span style={{ color: "var(--amber)" }}>&#8595;</span>
-          </a>
+          </MagneticBtn>
         </motion.div>
       </motion.div>
 

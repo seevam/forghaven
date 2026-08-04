@@ -1,5 +1,6 @@
 "use client";
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 
 const features = [
@@ -16,10 +17,7 @@ function FeatureCard({ item, i }: { item: typeof features[0]; i: number }) {
     <motion.div
       ref={ref}
       className="p-5 border"
-      style={{
-        borderColor: "var(--divider)",
-        background: "rgba(200,132,58,0.03)",
-      }}
+      style={{ borderColor: "var(--divider)", background: "rgba(200,132,58,0.03)" }}
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: i * 0.1 }}
@@ -31,6 +29,11 @@ function FeatureCard({ item, i }: { item: typeof features[0]; i: number }) {
     </motion.div>
   );
 }
+
+const headingLines: React.ReactNode[] = [
+  "Rooted in valley soil.",
+  <><em className="italic" style={{ color: "var(--amber)" }}>Refined by fire.</em></>,
+];
 
 export default function Heritage() {
   const ref = useRef<HTMLElement>(null);
@@ -48,24 +51,34 @@ export default function Heritage() {
     >
       {/* Image side */}
       <div className="relative overflow-hidden" ref={imgRef}>
-        <motion.img
-          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80"
-          alt="Heritage brewing"
-          className="w-full object-cover"
-          style={{
-            height: "clamp(320px, 60vh, 600px)",
-            filter: "sepia(0.2) brightness(0.82)",
-            y: imgY,
-            scale: 1.15,
-          }}
-        />
+        {/* Clip-path reveal wrapper */}
+        <motion.div
+          initial={{ clipPath: "inset(100% 0 0 0)" }}
+          animate={inView ? { clipPath: "inset(0% 0 0 0)" } : {}}
+          transition={{ duration: 1.1, delay: 0.1, ease: [0.22, 0.61, 0.36, 1] }}
+        >
+          <motion.div
+            className="relative w-full"
+            style={{ height: "clamp(320px, 60vh, 600px)", y: imgY, scale: 1.15 }}
+          >
+            <Image
+              src="https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=900&q=80"
+              alt="Heritage brewing"
+              fill
+              className="object-cover"
+              style={{ filter: "sepia(0.2) brightness(0.82)" }}
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </motion.div>
+        </motion.div>
+
         {/* Years badge */}
         <motion.div
           className="absolute top-8 -right-4 md:-right-6 px-6 py-5 text-center"
           style={{ background: "var(--amber)" }}
           initial={{ opacity: 0, x: 20 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.3 }}
+          transition={{ duration: 0.7, delay: 0.5 }}
         >
           <div className="font-display font-black text-3xl leading-none" style={{ color: "var(--charcoal)" }}>15</div>
           <div className="text-[10px] tracking-widest uppercase mt-1.5 font-semibold" style={{ color: "var(--charcoal)" }}>
@@ -73,20 +86,23 @@ export default function Heritage() {
           </div>
         </motion.div>
 
-        {/* Accent image */}
-        <motion.img
-          src="https://images.unsplash.com/photo-1532634733-cae1395e440f?w=500&q=80"
-          alt="Copper kettles"
-          className="absolute -bottom-8 -left-4 md:-left-6 w-2/5 object-cover border-4"
-          style={{
-            height: "clamp(120px, 22vh, 200px)",
-            filter: "sepia(0.15) brightness(0.85)",
-            borderColor: "var(--charcoal-mid)",
-          }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.5 }}
-        />
+        {/* Accent image — clip-path reveal from bottom */}
+        <motion.div
+          className="absolute -bottom-8 -left-4 md:-left-6 w-2/5 border-4 overflow-hidden"
+          style={{ height: "clamp(120px, 22vh, 200px)", borderColor: "var(--charcoal-mid)" }}
+          initial={{ clipPath: "inset(100% 0 0 0)" }}
+          animate={inView ? { clipPath: "inset(0% 0 0 0)" } : {}}
+          transition={{ duration: 0.9, delay: 0.45, ease: [0.22, 0.61, 0.36, 1] }}
+        >
+          <Image
+            src="https://images.unsplash.com/photo-1571767454098-246b94fbcf70?w=500&q=80"
+            alt="Copper kettles"
+            fill
+            className="object-cover"
+            style={{ filter: "sepia(0.15) brightness(0.85)" }}
+            sizes="20vw"
+          />
+        </motion.div>
       </div>
 
       {/* Text side */}
@@ -103,27 +119,33 @@ export default function Heritage() {
           </span>
         </motion.div>
 
-        <motion.h2
+        {/* Line-by-line masked heading */}
+        <h2
           className="font-display font-bold leading-tight mb-7"
           style={{ fontSize: "clamp(2rem, 3.5vw, 3.2rem)", color: "var(--offwhite)" }}
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.1 }}
         >
-          Rooted in valley soil.{" "}
-          <em className="italic" style={{ color: "var(--amber)" }}>
-            Refined by fire.
-          </em>
-        </motion.h2>
+          {headingLines.map((line, i) => (
+            <span key={i} style={{ display: "block", overflow: "hidden" }}>
+              <motion.span
+                style={{ display: "block" }}
+                initial={{ y: "108%" }}
+                animate={inView ? { y: 0 } : {}}
+                transition={{ duration: 0.85, delay: 0.2 + i * 0.12, ease: [0.22, 0.61, 0.36, 1] }}
+              >
+                {line}
+              </motion.span>
+            </span>
+          ))}
+        </h2>
 
         <motion.p
-          className="leading-relaxed mb-5 font-light"
+          className="leading-relaxed mb-7 font-light"
           style={{ color: "var(--parchment-dim)", fontSize: "0.95rem" }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.2 }}
+          initial={{ opacity: 0, y: 16, filter: "blur(5px)" }}
+          animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+          transition={{ duration: 0.8, delay: 0.45 }}
         >
-          Forgehaven began in a converted blacksmith's shed in 2009, with two copper kettles,
+          Forgehaven began in a converted blacksmith&apos;s shed in 2009, with two copper kettles,
           a water source fed by the Cascade foothills, and a single-minded obsession with making
           beer that tastes like somewhere specific.
         </motion.p>
@@ -131,9 +153,9 @@ export default function Heritage() {
         <motion.p
           className="leading-relaxed mb-10 font-light"
           style={{ color: "var(--parchment-dim)", fontSize: "0.95rem" }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.3 }}
+          initial={{ opacity: 0, y: 16, filter: "blur(5px)" }}
+          animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+          transition={{ duration: 0.8, delay: 0.55 }}
         >
           Every grain we use is sourced within 120 miles. Every recipe is tested until it stops being
           a recipe and starts being a place. That has never changed.
