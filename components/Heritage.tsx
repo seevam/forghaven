@@ -139,7 +139,7 @@ export default function Heritage() {
         </h2>
 
         <motion.p
-          className="leading-relaxed mb-5 font-light"
+          className="leading-relaxed mb-7 font-light"
           style={{ color: "var(--parchment-dim)", fontSize: "0.95rem" }}
           initial={{ opacity: 0, y: 16, filter: "blur(5px)" }}
           animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
