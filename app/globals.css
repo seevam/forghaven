@@ -19,8 +19,6 @@
   --divider: rgba(232, 223, 200, 0.1);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
 html {
   scroll-behavior: auto; /* Lenis handles this */
 }

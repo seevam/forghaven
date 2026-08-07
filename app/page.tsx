@@ -1,4 +1,5 @@
 "use client";
+import { MotionConfig } from "framer-motion";
 import SmoothScroll from "@/components/SmoothScroll";
 import ScrollProgress from "@/components/ScrollProgress";
 import Cursor from "@/components/Cursor";
@@ -15,21 +16,23 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <SmoothScroll>
-      <Cursor />
-      <GrainOverlay />
-      <ScrollProgress />
-      <Nav />
-      <main>
-        <Hero />
-        <IntroBand />
-        <BrewsScrolly />
-        <Marquee />
-        <Heritage />
-        <HorizontalProcess />
-        <TestimonialCTA />
-      </main>
-      <Footer />
-    </SmoothScroll>
+    <MotionConfig reducedMotion="user">
+      <SmoothScroll>
+        <Cursor />
+        <GrainOverlay />
+        <ScrollProgress />
+        <Nav />
+        <main>
+          <Hero />
+          <IntroBand />
+          <BrewsScrolly />
+          <Marquee />
+          <Heritage />
+          <HorizontalProcess />
+          <TestimonialCTA />
+        </main>
+        <Footer />
+      </SmoothScroll>
+    </MotionConfig>
   );
 }
